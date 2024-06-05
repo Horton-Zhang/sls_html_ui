@@ -8,6 +8,6 @@ xset -dpms
 
 matchbox-window-manager -use_titlebar no &
 unclutter -idle 0 &    # 自动隐藏鼠标
-source $(dirname "$(readlink -f "$0")")/bin/activate
+# source $(dirname "$(readlink -f "$0")")/bin/activate
 python $(dirname "$(readlink -f "$0")")/app.py &
-chromium-browser file://$(dirname "$(readlink -f "$0")")/home.html
+chromium-browser http://127.0.0.1:8080/home.html

@@ -1,12 +1,20 @@
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
+from flask import Flask, render_template, request, jsonify, send_from_directory
+# from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app) # 允许所有跨域请求
+# CORS(app) # 允许所有跨域请求
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/<path:filename>')
+def index(filename):
+    return render_template(filename)
+
+@app.route('/assets/<path:filename>')
+def serve_static_file(filename):
+    return send_from_directory('assets', filename)
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(app.root_path, 'favicon.ico')
 
 @app.route('/print')
 def print_message():
@@ -97,5 +105,4 @@ def set_guadao_power_value():
     return jsonify({'status': 'Value received'})
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
-# onToggle(this, flaskAppUrl+'/main_power')
+    app.run(host='127.0.0.1', port=8080)
