@@ -1,3 +1,5 @@
+
+from sls_commands import sls_send_command
 from flask import Flask, render_template, request, jsonify, send_from_directory
 # from flask_cors import CORS
 
@@ -23,27 +25,27 @@ def print_message():
 
 @app.route('/start_print')
 def start_print():
-    print("start_print")
+    sls_send_command("start_print")
     return "Check your console!"
 
 @app.route('/stop_print')
 def stop_print():
-    print("stop_print")
+    sls_send_command("stop_print")
     return "Check your console!"
 
 @app.route('/cancel_print')
 def cancel_print():
-    print("cancel_print")
+    sls_send_command("cancel_print")
     return "Check your console!"
 
 @app.route('/guadao_switch')
 def guadao_switch():
-    print("guadao_switch")
+    sls_send_command("scrape")
     return "Check your console!"
 
 @app.route('/reset_switch')
 def reset_switch():
-    print("reset_switch")
+    sls_send_command("reset")
     return "Check your console!"
 
 @app.route('/light_switch', methods=['POST'])
@@ -62,12 +64,12 @@ def pump_switch():
 
 @app.route('/z_axis_up')
 def z_axis_up():
-    print("z_axis_up")
+    sls_send_command("z_axis_up")
     return "Check your console!"
 
 @app.route('/z_axis_down')
 def z_axis_down():
-    print("z_axis_down")
+    sls_send_command("z_axis_down")
     return "Check your console!"
 
 @app.route('/z_axis_reset')
@@ -104,5 +106,8 @@ def set_guadao_power_value():
     print("guadao_power:", value) # 在服务器的控制台打印这个值
     return jsonify({'status': 'Value received'})
 
-if __name__ == '__main__':
+def run():
     app.run(host='127.0.0.1', port=8080)
+
+if __name__ == '__main__':
+    run()
